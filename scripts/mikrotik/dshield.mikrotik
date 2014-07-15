@@ -1,0 +1,20 @@
+# Script which will download the drop list as a text file
+/system script add name="Download_dshield" source={
+/tool fetch url="http://joshaven.com/dshield.rsc" mode=http;
+:log info "Downloaded dshield.rsc from Joshaven.com";
+}
+
+# Script which will Remove old Begone list and add new one
+/system script add name="Replace_dshield" source={
+:foreach i in=[/ip firewall address-list find ] do={
+:if ( [/ip firewall address-list get $i comment] = "DShield" ) do={
+/ip firewall address-list remove $i
+}
+}
+/import file-name=dshield.rsc;
+:log info "Removal old dshield and add new";
+}
+
+# Schedule the download and application of the dshield list
+/system scheduler add comment="Download dshield list" interval=7d name="DownloadDShieldList" on-event=Download_dshield start-date=jan/01/1970 start-time=02:42:00
+/system scheduler add comment="Apply dshield List" interval=7d name="InstallDShieldList" on-event=Replace_dshield start-date=jan/01/1970 start-time=02:52:00
