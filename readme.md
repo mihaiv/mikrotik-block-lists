@@ -86,3 +86,20 @@ The DROP list will not include any IP address space under the control of any leg
 	# Schedule the download and application of the dshield list
 	/system scheduler add comment="Download dshield list" interval=7d name="DownloadDShieldList" on-event=Download_dshield start-date=jan/01/1970 start-time=02:42:00
 	/system scheduler add comment="Apply dshield List" interval=7d name="InstallDShieldList" on-event=Replace_dshield start-date=jan/01/1970 start-time=02:52:00
+
+### [malc0de]  (https://malc0de.com/dashboard)
+
+"The files below will be updated daily with domains that have been indentified distributing malware during the past 30 days."
+
+	# Script which will download the malc0de list as a text file
+	/system script add name="Download_malc0de" source={
+	/tool fetch url="http://yourdomain.com/lists/malc0de.rsc" mode=http;
+	:log info "Downloaded malc0de.rsc";
+	# Script which will Remove old malc0de list and add new one
+	/system script add name="Replace_malc0de" source={
+	:if ( [/ip firewall address-list get $i comment] = "malc0de" ) do={
+	/import file-name=malc0de.rsc;
+	:log info "Removal of old malc0de and add new";
+	# Schedule the download and application of the malc0de list
+	/system scheduler add comment="Download malc0de list" interval=7d name="Downloadmalc0deList" on-event=Download_malc0de start-date=jan/01/1970 start-time=02:02:00
+	/system scheduler add comment="Apply malc0de List" interval=7d name="Installmalc0deList" on-event=Replace_malc0de start-date=jan/01/1970 start-time=02:12:00
