@@ -4,7 +4,7 @@
 :log info "Downloaded dshield.rsc from Joshaven.com";
 }
 
-# Script which will Remove old Begone list and add new one
+# Script which will Remove old dshield list and add new one
 /system script add name="Replace_dshield" source={
 :foreach i in=[/ip firewall address-list find ] do={
 :if ( [/ip firewall address-list get $i comment] = "DShield" ) do={
