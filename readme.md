@@ -20,7 +20,7 @@ They were adapted to be easily deployed on a personal server.
 	:log info "Downloaded openbl.rsc";
 	}
 
-	# Script which will Remove old Begone list and add new one
+	# Script which will Remove old openbl list and add new one
 	/system script add name="Replace_openbl" source={
 	:foreach i in=[/ip firewall address-list find ] do={
 	:if ( [/ip firewall address-list get $i comment] = "OpenBL" ) do={
@@ -47,7 +47,7 @@ The DROP list will not include any IP address space under the control of any leg
 	:log info "Downloaded spamhaus.rsc";
 	}
 
-	# Script which will Remove old Begone list and add new one
+	# Script which will Remove old spamhaus list and add new one
 	/system script add name="Replace_spamhaus" source={
 	:foreach i in=[/ip firewall address-list find ] do={
 	:if ( [/ip firewall address-list get $i comment] = "SpamHaus" ) do={
@@ -55,12 +55,12 @@ The DROP list will not include any IP address space under the control of any leg
 	}
 	}
 	/import file-name=spamhaus.rsc;
-	:log info "Removal old openbl and add new";
+	:log info "Removal old spamhaus and add new";
 	}
 
 	# Schedule the download and application of the spamhaus list
-	/system scheduler add comment="Download spamnaus list" interval=7d name="DownloadSpamhausList" on-event=Download_spamhaus start-date=jan/01/1970 start-time=02:02:00
-	/system scheduler add comment="Apply spamnaus List" interval=7d name="InstallSpamhausList" on-event=Replace_spamhaus start-date=jan/01/1970 start-time=02:12:00
+	/system scheduler add comment="Download spamhaus list" interval=7d name="DownloadSpamhausList" on-event=Download_spamhaus start-date=jan/01/1970 start-time=02:02:00
+	/system scheduler add comment="Apply spamhaus List" interval=7d name="InstallSpamhausList" on-event=Replace_spamhaus start-date=jan/01/1970 start-time=02:12:00
 
 ### [dshield](https://www.dshield.org/)
 
@@ -72,7 +72,7 @@ The DROP list will not include any IP address space under the control of any leg
 	:log info "Downloaded dshield.rsc";
 	}
 
-	# Script which will Remove old Begone list and add new one
+	# Script which will Remove old dshield list and add new one
 	/system script add name="Replace_dshield" source={
 	:foreach i in=[/ip firewall address-list find ] do={
 	:if ( [/ip firewall address-list get $i comment] = "DShield" ) do={
