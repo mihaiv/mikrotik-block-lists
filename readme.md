@@ -93,13 +93,20 @@ The DROP list will not include any IP address space under the control of any leg
 
 	# Script which will download the malc0de list as a text file
 	/system script add name="Download_malc0de" source={
-	/tool fetch url="http://yourdomain.com/lists/malc0de.rsc" mode=http;
+	/tool fetch url="http://blocklists.mihai.pro/lists/malc0de.rsc" mode=http;
 	:log info "Downloaded malc0de.rsc";
+	}
+
+
 	# Script which will Remove old malc0de list and add new one
 	/system script add name="Replace_malc0de" source={
 	:if ( [/ip firewall address-list get $i comment] = "malc0de" ) do={
+	/ip firewall address-list remove $i
+	}
+	}
 	/import file-name=malc0de.rsc;
 	:log info "Removal of old malc0de and add new";
 	# Schedule the download and application of the malc0de list
 	/system scheduler add comment="Download malc0de list" interval=7d name="Downloadmalc0deList" on-event=Download_malc0de start-date=jan/01/1970 start-time=02:02:00
 	/system scheduler add comment="Apply malc0de List" interval=7d name="Installmalc0deList" on-event=Replace_malc0de start-date=jan/01/1970 start-time=02:12:00
+
