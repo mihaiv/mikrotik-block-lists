@@ -93,7 +93,7 @@ The DROP list will not include any IP address space under the control of any leg
 
 	# Script which will download the malc0de list as a text file
 	/system script add name="Download_malc0de" source={
-	/tool fetch url="http://blocklists.mihai.pro/lists/malc0de.rsc" mode=http;
+	/tool fetch url="http://yourdomain.com/lists/malc0de.rsc" mode=http;
 	:log info "Downloaded malc0de.rsc";
 	}
 
