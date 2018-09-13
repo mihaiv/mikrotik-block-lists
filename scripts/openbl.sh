@@ -1,3 +1,5 @@
+#OpenBL has shut down. This script does not work anymore
+
 #!/bin/bash
 # Inspired by Joshaven Potter
 # http://joshaven.com/resources/tricks/mikrotik-automatically-updated-address-list/

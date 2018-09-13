@@ -1,18 +1,18 @@
 # Script which will download the malc0de list as a text file
 /system script add name="Download_malc0de" source={
-/tool fetch url="http://yourdomain.com/lists/malc0de.rsc" mode=http;
-:log info "Downloaded malc0de.rsc";
+    /tool fetch url="http://yourdomain.com/lists/malc0de.rsc" mode=http;
+    :log info "Downloaded malc0de.rsc";
 }
 
 # Script which will Remove old malc0de list and add new one
 /system script add name="Replace_malc0de" source={
-:foreach i in=[/ip firewall address-list find ] do={
-:if ( [/ip firewall address-list get $i comment] = "malc0de" ) do={
-/ip firewall address-list remove $i
-}
-}
-/import file-name=malc0de.rsc;
-:log info "Removal of old malc0de and add new";
+    :foreach i in=[/ip firewall address-list find ] do={
+        :if ( [/ip firewall address-list get $i comment] = "malc0de" ) do={
+        /ip firewall address-list remove $i
+        }
+    }
+    /import file-name=malc0de.rsc;
+    :log info "Removal of old malc0de and add new";
 }
 
 # Schedule the download and application of the malc0de list
